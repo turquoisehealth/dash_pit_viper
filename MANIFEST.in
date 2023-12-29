@@ -1,0 +1,11 @@
+include dash_pit_viper/dash_pit_viper.min.js
+include dash_pit_viper/dash_pit_viper.min.js.map
+include dash_pit_viper/async-*.js
+include dash_pit_viper/async-*.js.map
+include dash_pit_viper/*-shared.js
+include dash_pit_viper/*-shared.js.map
+include dash_pit_viper/metadata.json
+include dash_pit_viper/package-info.json
+include README.md
+include LICENSE
+include package.json

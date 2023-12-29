@@ -1,0 +1,13 @@
+Package: dashPitViper
+Title: Project Description
+Version: 0.0.1
+Description: Project Description
+Depends: R (>= 3.0.2)
+Imports: 
+Suggests: 
+License:  + file LICENSE
+URL: https://github.com/Turquoise Health/dash-pit-viper
+BugReports: https://github.com/Turquoise Health/dash-pit-viper/issues
+Encoding: UTF-8
+LazyData: true
+KeepSource: true
