@@ -17,7 +17,7 @@ app.layout = html.Div(
         html.Button("add options", id="add-options"),
         html.H1("Pit Viper Select With Tag (dict)"),
         html.Div(
-            dash_pit_viper.PvSelectWithTag(
+            dash_pit_viper.PvSelect(
                 options=[
                     {"label": "Option 1", "value": "1"},
                     {"label": "Option 2", "value": "2"},
@@ -29,6 +29,7 @@ app.layout = html.Div(
                 deselectAll=True,
                 dataAlign="right",
                 placeholder="Providers",
+                withCountTag=True,
             ),
             className="pv-surface-accent pv-bordered pv-inset-square-24 pv-margin-auto",
             style={"maxWidth": "260px"},
@@ -36,16 +37,35 @@ app.layout = html.Div(
         html.Label("Values", id="output"),
         html.H1("Pit Viper Select With Tag (list)"),
         html.Div(
-            dash_pit_viper.PvSelectWithTag(
-                options=["Option 1", "Option 2", "Option 3"],
+            dash_pit_viper.PvSelect(
+                options=[123, 456, 789],
                 id="select2",
-                value=["1"],
+                value=[123],
                 multi=True,
+                selectAll=True,
+                deselectAll=True,
+                searchable=True,
+                dataAlign="right",
+                placeholder="Providers",
+                dropdownWidth="260px",
+                withCountTag=True,
+            ),
+            className="pv-surface-accent pv-bordered pv-inset-square-24 pv-margin-auto",
+            style={"maxWidth": "260px"},
+        ),
+        html.H1("Pit Viper Select(list)"),
+        html.Div(
+            dash_pit_viper.PvSelect(
+                options=["Option 1", "Option 2", "Option 3"],
+                id="select3",
+                value="3",
+                multi=False,
                 selectAll=True,
                 deselectAll=True,
                 dataAlign="right",
                 placeholder="Providers",
                 dropdownWidth="260px",
+                withCountTag=False,
             ),
             className="pv-surface-accent pv-bordered pv-inset-square-24 pv-margin-auto",
             style={"maxWidth": "260px"},

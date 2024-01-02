@@ -12,7 +12,7 @@ Keyword arguments:
 - id (string; optional):
     The ID used to identify this component in Dash callbacks.
 
-- className (string; default "pv-icon"):
+- className (string; default 'pv-icon'):
     The className could be pv-icon, pv-icon-20, etc.
 
 - href (string; required):

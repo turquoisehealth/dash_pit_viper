@@ -1,6 +1,7 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
 export(PvIcon)
-export(PvSelectWithTag)
+export(PvSelect)
+export(pvSelect)
 export(pvIcon)
 export(pvSelectWithTag)

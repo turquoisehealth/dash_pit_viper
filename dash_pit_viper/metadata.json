@@ -18,7 +18,7 @@
         "required": false,
         "description": "The className could be pv-icon, pv-icon-20, etc.",
         "defaultValue": {
-          "value": "\"pv-icon\"",
+          "value": "'pv-icon'",
           "computed": false
         }
       },
@@ -31,10 +31,17 @@
       }
     }
   },
-  "src/lib/components/PvSelectWithTag.react.js": {
+  "src/lib/components/PvSelect.react.js": {
     "description": "pv-icon is a component that renders an svg icon.",
-    "displayName": "PvSelectWithTag",
+    "displayName": "PvSelect",
     "methods": [
+      {
+        "name": "getOptionsValue",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
       {
         "name": "countSelected",
         "docblock": null,
@@ -197,7 +204,11 @@
           ]
         },
         "required": false,
-        "description": "The value of the input. If `multi` is false (the default)\nthen value is just a string that corresponds to the values\nprovided in the `options` property. If `multi` is true, then\nmultiple values can be selected at once, and `value` is an\narray of items with values corresponding to those in the\n`options` prop."
+        "description": "The value of the input. If `multi` is false (the default)\nthen value is just a string that corresponds to the values\nprovided in the `options` property. If `multi` is true, then\nmultiple values can be selected at once, and `value` is an\narray of items with values corresponding to those in the\n`options` prop.",
+        "defaultValue": {
+          "value": "''",
+          "computed": false
+        }
       },
       "multi": {
         "type": {
@@ -217,7 +228,7 @@
         "required": false,
         "description": "Adds the ability to select all options.",
         "defaultValue": {
-          "value": "true",
+          "value": "false",
           "computed": false
         }
       },
@@ -228,7 +239,7 @@
         "required": false,
         "description": "Adds the ability to deselect all options.",
         "defaultValue": {
-          "value": "true",
+          "value": "false",
           "computed": false
         }
       },
@@ -239,7 +250,7 @@
         "required": false,
         "description": "Whether to enable the searching feature or not",
         "defaultValue": {
-          "value": "true",
+          "value": "false",
           "computed": false
         }
       },
@@ -250,7 +261,7 @@
         "required": false,
         "description": "The grey, default text shown when no option is selected",
         "defaultValue": {
-          "value": "\"Selected\"",
+          "value": "'Selected'",
           "computed": false
         }
       },
@@ -306,6 +317,17 @@
         },
         "required": false,
         "description": "width of the dropdown element"
+      },
+      "withCountTag": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Defines if the select uses withCountTag or not",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
       },
       "id": {
         "type": {

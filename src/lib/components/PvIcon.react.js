@@ -32,5 +32,4 @@ PvIcon.propTypes = {
     href: PropTypes.string.isRequired,
 };
 
-
-PvIcon.defaultProps = {className: "pv-icon"};
+PvIcon.defaultProps = {className: 'pv-icon'};

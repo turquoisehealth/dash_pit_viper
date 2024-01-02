@@ -1,7 +1,7 @@
 from .PvIcon import PvIcon
-from .PvSelectWithTag import PvSelectWithTag
+from .PvSelect import PvSelect
 
 __all__ = [
     "PvIcon",
-    "PvSelectWithTag"
+    "PvSelect"
 ]
