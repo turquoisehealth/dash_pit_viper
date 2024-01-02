@@ -27,6 +27,9 @@ Keyword arguments:
     If True, this dropdown is disabled and the selection cannot be
     changed.
 
+- dropdownWidth (string; optional):
+    width of the dropdown element.
+
 - loading_state (dict; optional):
     Object that holds the loading state object coming from
     dash-renderer.
@@ -50,7 +53,8 @@ Keyword arguments:
     [string|number]}, an optional disabled field can be used for each
     option.
 
-    `options` is a list of dicts with keys:
+    `options` is a list of string | number | booleans | dict | list of
+    dicts with keys:
 
     - disabled (boolean; optional):
         If True, this option is disabled and cannot be selected.
@@ -65,7 +69,7 @@ Keyword arguments:
     - visible (boolean; optional):
         If False, this option is hidden from view.
 
-- placeholder (string; default "Select"):
+- placeholder (string; default "Selected"):
     The grey, default text shown when no option is selected.
 
 - searchable (boolean; default True):
@@ -77,7 +81,7 @@ Keyword arguments:
 - style (dict; optional):
     Defines CSS styles which will override styles previously set.
 
-- value (string | list of strings; optional):
+- value (string | number | boolean | list of string | number | booleans; optional):
     The value of the input. If `multi` is False (the default) then
     value is just a string that corresponds to the values provided in
     the `options` property. If `multi` is True, then multiple values
@@ -88,10 +92,10 @@ Keyword arguments:
     _namespace = 'dash_pit_viper'
     _type = 'PvSelectWithTag'
     @_explicitize_args
-    def __init__(self, options=Component.UNDEFINED, value=Component.UNDEFINED, multi=Component.UNDEFINED, selectAll=Component.UNDEFINED, deselectAll=Component.UNDEFINED, searchable=Component.UNDEFINED, placeholder=Component.UNDEFINED, disabled=Component.UNDEFINED, dataAlign=Component.UNDEFINED, style=Component.UNDEFINED, className=Component.UNDEFINED, id=Component.UNDEFINED, loading_state=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'className', 'dataAlign', 'deselectAll', 'disabled', 'loading_state', 'multi', 'options', 'placeholder', 'searchable', 'selectAll', 'style', 'value']
+    def __init__(self, options=Component.UNDEFINED, value=Component.UNDEFINED, multi=Component.UNDEFINED, selectAll=Component.UNDEFINED, deselectAll=Component.UNDEFINED, searchable=Component.UNDEFINED, placeholder=Component.UNDEFINED, disabled=Component.UNDEFINED, dataAlign=Component.UNDEFINED, style=Component.UNDEFINED, className=Component.UNDEFINED, dropdownWidth=Component.UNDEFINED, id=Component.UNDEFINED, loading_state=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'className', 'dataAlign', 'deselectAll', 'disabled', 'dropdownWidth', 'loading_state', 'multi', 'options', 'placeholder', 'searchable', 'selectAll', 'style', 'value']
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'className', 'dataAlign', 'deselectAll', 'disabled', 'loading_state', 'multi', 'options', 'placeholder', 'searchable', 'selectAll', 'style', 'value']
+        self.available_properties = ['id', 'className', 'dataAlign', 'deselectAll', 'disabled', 'dropdownWidth', 'loading_state', 'multi', 'options', 'placeholder', 'searchable', 'selectAll', 'style', 'value']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()

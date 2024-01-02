@@ -11,9 +11,9 @@ pv-icon is a component that renders an svg icon.
 
 \usage{
 pvSelectWithTag(id=NULL, className=NULL, dataAlign=NULL, deselectAll=NULL,
-disabled=NULL, loading_state=NULL, multi=NULL, options=NULL,
-placeholder=NULL, searchable=NULL, selectAll=NULL,
-style=NULL, value=NULL)
+disabled=NULL, dropdownWidth=NULL, loading_state=NULL,
+multi=NULL, options=NULL, placeholder=NULL, searchable=NULL,
+selectAll=NULL, style=NULL, value=NULL)
 }
 
 \arguments{
@@ -29,6 +29,8 @@ components in an app.}
 
 \item{disabled}{Logical. If true, this dropdown is disabled and the selection cannot be changed.}
 
+\item{dropdownWidth}{Character. width of the dropdown element}
+
 \item{loading_state}{Lists containing elements 'is_loading', 'prop_name', 'component_name'.
 those elements have the following types:
   - is_loading (logical; optional): determines if the component is loading or not
@@ -37,7 +39,7 @@ those elements have the following types:
 
 \item{multi}{Logical. If true, the user can select multiple values}
 
-\item{options}{List of lists containing elements 'label', 'value', 'disabled', 'visible'.
+\item{options}{List of character | numeric | logicals | named list | list of lists containing elements 'label', 'value', 'disabled', 'visible'.
 those elements have the following types:
   - label (a list of or a singular dash component, string or number; required): the option's label
   - value (character | numeric | logical; required): the value of the option. this value
@@ -55,7 +57,7 @@ an optional disabled field can be used for each option}
 
 \item{style}{Named list. Defines CSS styles which will override styles previously set.}
 
-\item{value}{Character | list of characters. The value of the input. If `multi` is false (the default)
+\item{value}{Character | numeric | logical | list of character | numeric | logicals. The value of the input. If `multi` is false (the default)
 then value is just a string that corresponds to the values
 provided in the `options` property. If `multi` is true, then
 multiple values can be selected at once, and `value` is an

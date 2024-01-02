@@ -15,6 +15,7 @@ components in an app.
 - `dataAlign` (a value equal to: 'left', 'right'; optional): Aligns the dropdown menu to the right or left of the container.
 - `deselectAll` (Bool; optional): Adds the ability to deselect all options.
 - `disabled` (Bool; optional): If true, this dropdown is disabled and the selection cannot be changed.
+- `dropdownWidth` (String; optional): width of the dropdown element
 - `loading_state` (optional): Object that holds the loading state object coming from dash-renderer. loading_state has the following type: lists containing elements 'is_loading', 'prop_name', 'component_name'.
 Those elements have the following types:
   - `is_loading` (Bool; optional): Determines if the component is loading or not
@@ -22,7 +23,7 @@ Those elements have the following types:
   - `component_name` (String; optional): Holds the name of the component that is loading
 - `multi` (Bool; optional): If true, the user can select multiple values
 - `options` (optional): An array of options {label: [string|number], value: [string|number]},
-an optional disabled field can be used for each option. options has the following type: Array of lists containing elements 'label', 'value', 'disabled', 'visible'.
+an optional disabled field can be used for each option. options has the following type: Array of String | Real | Bools | Dict | Array of lists containing elements 'label', 'value', 'disabled', 'visible'.
 Those elements have the following types:
   - `label` (a list of or a singular dash component, string or number; required): The option's label
   - `value` (String | Real | Bool; required): The value of the option. This value
@@ -34,7 +35,7 @@ corresponds to the items specified in the
 - `searchable` (Bool; optional): Whether to enable the searching feature or not
 - `selectAll` (Bool; optional): Adds the ability to select all options.
 - `style` (Dict; optional): Defines CSS styles which will override styles previously set.
-- `value` (String | Array of Strings; optional): The value of the input. If `multi` is false (the default)
+- `value` (String | Real | Bool | Array of String | Real | Bools; optional): The value of the input. If `multi` is false (the default)
 then value is just a string that corresponds to the values
 provided in the `options` property. If `multi` is true, then
 multiple values can be selected at once, and `value` is an
@@ -42,7 +43,7 @@ array of items with values corresponding to those in the
 `options` prop.
 """
 function pvselectwithtag(; kwargs...)
-        available_props = Symbol[:id, :className, :dataAlign, :deselectAll, :disabled, :loading_state, :multi, :options, :placeholder, :searchable, :selectAll, :style, :value]
+        available_props = Symbol[:id, :className, :dataAlign, :deselectAll, :disabled, :dropdownWidth, :loading_state, :multi, :options, :placeholder, :searchable, :selectAll, :style, :value]
         wild_props = Symbol[]
         return Component("pvselectwithtag", "PvSelectWithTag", "dash_pit_viper", available_props, wild_props; kwargs...)
 end

@@ -76,7 +76,7 @@
         "returns": null
       },
       {
-        "name": "searchKeyup",
+        "name": "searchOnChange",
         "docblock": null,
         "modifiers": [],
         "params": [
@@ -91,15 +91,10 @@
     "props": {
       "options": {
         "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "exact",
-            "value": {
-              "label": {
-                "name": "node",
-                "description": "The option's label",
-                "required": true
-              },
+          "name": "union",
+          "value": [
+            {
+              "name": "arrayOf",
               "value": {
                 "name": "union",
                 "value": [
@@ -112,22 +107,55 @@
                   {
                     "name": "bool"
                   }
-                ],
-                "description": "The value of the option. This value\ncorresponds to the items specified in the\n`value` property.",
-                "required": true
+                ]
               },
-              "disabled": {
-                "name": "bool",
-                "description": "If true, this option is disabled and cannot be selected.",
-                "required": false
+              "description": "Array of options where the label and the value are the same thing - [string|number|bool]"
+            },
+            {
+              "name": "object",
+              "description": "Simpler `options` representation in dictionary format. The order is not guaranteed.\n{`value1`: `label1`, `value2`: `label2`, ... }\nwhich is equal to\n[{label: `label1`, value: `value1`}, {label: `label2`, value: `value2`}, ...]"
+            },
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "exact",
+                "value": {
+                  "label": {
+                    "name": "node",
+                    "description": "The option's label",
+                    "required": true
+                  },
+                  "value": {
+                    "name": "union",
+                    "value": [
+                      {
+                        "name": "string"
+                      },
+                      {
+                        "name": "number"
+                      },
+                      {
+                        "name": "bool"
+                      }
+                    ],
+                    "description": "The value of the option. This value\ncorresponds to the items specified in the\n`value` property.",
+                    "required": true
+                  },
+                  "disabled": {
+                    "name": "bool",
+                    "description": "If true, this option is disabled and cannot be selected.",
+                    "required": false
+                  },
+                  "visible": {
+                    "name": "bool",
+                    "description": "If false, this option is hidden from view.",
+                    "required": false
+                  }
+                }
               },
-              "visible": {
-                "name": "bool",
-                "description": "If false, this option is hidden from view.",
-                "required": false
-              }
+              "description": "An array of options {label: [string|number], value: [string|number]},\nan optional disabled field can be used for each option"
             }
-          }
+          ]
         },
         "required": false,
         "description": "An array of options {label: [string|number], value: [string|number]},\nan optional disabled field can be used for each option",
@@ -144,9 +172,26 @@
               "name": "string"
             },
             {
+              "name": "number"
+            },
+            {
+              "name": "bool"
+            },
+            {
               "name": "arrayOf",
               "value": {
-                "name": "string"
+                "name": "union",
+                "value": [
+                  {
+                    "name": "string"
+                  },
+                  {
+                    "name": "number"
+                  },
+                  {
+                    "name": "bool"
+                  }
+                ]
               }
             }
           ]
@@ -205,7 +250,7 @@
         "required": false,
         "description": "The grey, default text shown when no option is selected",
         "defaultValue": {
-          "value": "\"Select\"",
+          "value": "\"Selected\"",
           "computed": false
         }
       },
@@ -254,6 +299,13 @@
         },
         "required": false,
         "description": "className of the dropdown element"
+      },
+      "dropdownWidth": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "width of the dropdown element"
       },
       "id": {
         "type": {

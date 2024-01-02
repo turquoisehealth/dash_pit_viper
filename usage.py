@@ -15,6 +15,7 @@ app.layout = html.Div(
             href="#settings",
         ),
         html.Button("add options", id="add-options"),
+        html.H1("Pit Viper Select With Tag (dict)"),
         html.Div(
             dash_pit_viper.PvSelectWithTag(
                 options=[
@@ -33,6 +34,22 @@ app.layout = html.Div(
             style={"maxWidth": "260px"},
         ),
         html.Label("Values", id="output"),
+        html.H1("Pit Viper Select With Tag (list)"),
+        html.Div(
+            dash_pit_viper.PvSelectWithTag(
+                options=["Option 1", "Option 2", "Option 3"],
+                id="select2",
+                value=["1"],
+                multi=True,
+                selectAll=True,
+                deselectAll=True,
+                dataAlign="right",
+                placeholder="Providers",
+                dropdownWidth="260px",
+            ),
+            className="pv-surface-accent pv-bordered pv-inset-square-24 pv-margin-auto",
+            style={"maxWidth": "260px"},
+        ),
     ]
 )
 

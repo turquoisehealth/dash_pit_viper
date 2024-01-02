@@ -1,5 +1,38 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {type} from 'ramda';
+
+const sanitizeOptions = options => {
+
+    if (type(options) === 'Object') {
+        return Object.entries(options).map(([value, label]) => ({
+            label: React.isValidElement(label) ? label : String(label),
+            value,
+        }));
+    }
+
+    if (type(options) === 'Array') {
+        if (
+            options.length > 0 &&
+            ['String', 'Number', 'Bool'].includes(type(options[0]))
+        ) {
+            return options.map(option => ({
+                label: String(option),
+                value: option,
+            }));
+        }
+        return options;
+    }
+
+    return options;
+};
+
+const sanitizeValue = (value, options) => {
+    if (type(value) === 'Array') {
+        return value.filter(v => options.some(o => o.value === v));
+    }
+    return options.some(o => o.value === value) ? value : null;
+};
 
 /**
  * pv-icon is a component that renders an svg icon.
@@ -11,13 +44,18 @@ export default class PvSelectWithTag extends Component {
         this.state = {
             isToggleOn: false,
         };
-        this.props.setProps({});
+        // Sanitize options
+        const {options, value} = props;
+        const sanitizedOptions = sanitizeOptions(options);
+        // Sanitize value
+        const sanitizedValue = sanitizeValue(value, sanitizedOptions);
+        props.setProps({value: sanitizedValue, options: sanitizedOptions});
     }
 
     countSelected() {
         // Count the number of selected options
         const {multi, value} = this.props;
-        return multi ? value.length : value ? 1 : 0;
+        return multi && value ? value.length : value ? 1 : 0;
     }
 
     handleClick() {
@@ -33,7 +71,7 @@ export default class PvSelectWithTag extends Component {
         const {multi, value: currentValue} = this.props;
         let newValue = [];
         if (multi) {
-            if (currentValue.includes(value)) {
+            if (currentValue && currentValue.includes(value)) {
                 newValue = currentValue.filter((v) => v !== value);
             } else {
                 newValue = [...currentValue, value];
@@ -52,10 +90,11 @@ export default class PvSelectWithTag extends Component {
 
     deselectAllClick() {
         // Deselect all options
-        this.props.setProps({value: []});
+        const {multi} = this.props;
+        this.props.setProps({value: multi ? [] : null});
     }
 
-    searchKeyup(event) {
+    searchOnChange(event) {
         // Search for options
         const {value} = event.target;
         const {options} = this.props;
@@ -68,19 +107,20 @@ export default class PvSelectWithTag extends Component {
     }
 
     render() {
-        const {id, className, searchable, selectAll, deselectAll, placeholder, multi, disabled, dataAlign, value, options} = this.props;
+        const {id, className, searchable, selectAll, deselectAll, placeholder, multi, disabled, dataAlign, value, options, dropdownWidth} = this.props;
         const {isToggleOn} = this.state;
+        const sanitizedOptions = sanitizeOptions(options);
 
         // Create list of options
-        const listOptions = options.map((option) => {
-            const checked = multi ? value.includes(option.value) : option.value === value;
+        const listOptions = sanitizedOptions.map((option) => {
             if (option.visible === false) {
                 return null;
             }
+            const checked = multi && value ? value.includes(option.value) : value && value === option.value;
             return (
-                <li key={option.value}>
+                <li key={id + "-" + option.value}>
                     <label className="pv-flex">
-                        <input type={ multi ? "checkbox" : "radio"} className={ multi ? "pv-checkbox" : "pv-radio"} name={id} value={option.value} disabled={disabled | option.disabled} defaultChecked="false" checked={checked} onChange={(e) => this.optionOnChange(e)}/>
+                        <input type={ multi ? "checkbox" : "radio"} className={ multi ? "pv-checkbox" : "pv-radio"} name={id} value={option.value} disabled={disabled | option.disabled} checked={checked} onChange={(e) => this.optionOnChange(e)}/>
                         <span>{option.label}</span>
                     </label>
                 </li>
@@ -92,11 +132,11 @@ export default class PvSelectWithTag extends Component {
                 <button className="pv-select-multiple pv-text-left" aria-haspopup="listbox" {...(isToggleOn ? {'data-dropdown': 'true'} : {})} aria-controls={id + "-select-listbox"} onClick={() => this.handleClick()}>
                     <span className="pv-tag-inverse">{this.countSelected()}</span> {placeholder}
                 </button>
-                <div role="listbox" id={id + "-select-listbox"} className="pv-popover" data-align={dataAlign}>
+                <div role="listbox" id={id + "-select-listbox"} className="pv-popover" data-align={dataAlign} style={dropdownWidth ? {"width": dropdownWidth} : {}}>
                     {
                         searchable &&
                         <div className="pv-inset-square-8">
-                            <input type="text" className="pv-input-search" placeholder="Search" onKeyUp={(e) => this.searchKeyup(e)}/>
+                            <input type="text" className="pv-input-search" placeholder="Search" onChange={(e) => this.searchOnChange(e)}/>
                         </div>
                     }
                     <div className="pv-space-between pv-inset-inline-16">
@@ -116,35 +156,59 @@ PvSelectWithTag.propTypes = {
      * An array of options {label: [string|number], value: [string|number]},
      * an optional disabled field can be used for each option
      */
-    options: PropTypes.arrayOf(
-        PropTypes.exact({
-            /**
-             * The option's label
-             */
-            label: PropTypes.node.isRequired,
-
-            /**
-             * The value of the option. This value
-             * corresponds to the items specified in the
-             * `value` property.
-             */
-            value: PropTypes.oneOfType([
+    options: PropTypes.oneOfType([
+        /**
+         * Array of options where the label and the value are the same thing - [string|number|bool]
+         */
+        PropTypes.arrayOf(
+            PropTypes.oneOfType([
                 PropTypes.string,
                 PropTypes.number,
                 PropTypes.bool,
-            ]).isRequired,
+            ])
+        ),
+        /**
+         * Simpler `options` representation in dictionary format. The order is not guaranteed.
+         * {`value1`: `label1`, `value2`: `label2`, ... }
+         * which is equal to
+         * [{label: `label1`, value: `value1`}, {label: `label2`, value: `value2`}, ...]
+         */
+        PropTypes.object,
+        /**
+         * An array of options {label: [string|number], value: [string|number]},
+         * an optional disabled field can be used for each option
+         */
+        PropTypes.arrayOf(
+            PropTypes.exact({
+                /**
+                 * The option's label
+                 */
+                label: PropTypes.node.isRequired,
 
-            /**
-             * If true, this option is disabled and cannot be selected.
-             */
-            disabled: PropTypes.bool,
+                /**
+                 * The value of the option. This value
+                 * corresponds to the items specified in the
+                 * `value` property.
+                 */
+                value: PropTypes.oneOfType([
+                    PropTypes.string,
+                    PropTypes.number,
+                    PropTypes.bool,
+                ]).isRequired,
 
-            /**
-             * If false, this option is hidden from view.
-             */
-            visible: PropTypes.bool,
-        })
-    ),
+                /**
+                 * If true, this option is disabled and cannot be selected.
+                 */
+                disabled: PropTypes.bool,
+
+                /**
+                 * If false, this option is hidden from view.
+                 */
+                visible: PropTypes.bool,
+
+            })
+        ),
+    ]),
 
     /**
      * The value of the input. If `multi` is false (the default)
@@ -156,8 +220,14 @@ PvSelectWithTag.propTypes = {
      */
     value: PropTypes.oneOfType([
         PropTypes.string,
+        PropTypes.number,
+        PropTypes.bool,
         PropTypes.arrayOf(
-            PropTypes.string,
+            PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.number,
+                PropTypes.bool,
+            ])
         ),
     ]),
 
@@ -207,6 +277,11 @@ PvSelectWithTag.propTypes = {
     className: PropTypes.string,
 
     /**
+     * width of the dropdown element
+     */
+    dropdownWidth: PropTypes.string,
+
+    /**
      * The ID of this component, used to identify dash components
      * in callbacks. The ID needs to be unique across all of the
      * components in an app.
@@ -239,7 +314,7 @@ PvSelectWithTag.propTypes = {
 
 PvSelectWithTag.defaultProps = {
     options: [],
-    placeholder: "Select",
+    placeholder: "Selected",
     selectAll: true,
     deselectAll: true,
     disabled: false,
