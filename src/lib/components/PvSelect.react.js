@@ -54,19 +54,19 @@ export default class PvSelect extends Component {
             isToggleOn: false,
         };
 
-        this._setSelectRef = this._setSelectRef.bind(this)
+        this._setSelectRef = this._setSelectRef.bind(this);
     }
 
     /** See Select#focus (in react-select) */
-    focus () {
+    focus() {
         if (this._selectRef) {
-            return this._selectRef.focus()
+            return this._selectRef.focus();
         }
-        return false
+        return false;
     }
 
-    _setSelectRef (ref) {
-        this._selectRef = ref
+    _setSelectRef(ref) {
+        this._selectRef = ref;
     }
 
     getOptionsValue() {
@@ -168,8 +168,14 @@ export default class PvSelect extends Component {
                     ? value.includes(option.value)
                     : value && value === option.value;
             return (
-                <li key={id + '-' + option.value} onMouseDown={(e) => e.preventDefault()}>
-                    <label className="pv-flex" onMouseDown={(e) => e.preventDefault()}>
+                <li
+                    key={id + '-' + option.value}
+                    onMouseDown={(e) => e.preventDefault()}
+                >
+                    <label
+                        className="pv-flex"
+                        onMouseDown={(e) => e.preventDefault()}
+                    >
                         <input
                             type="checkbox"
                             className="pv-checkbox"
@@ -227,7 +233,11 @@ export default class PvSelect extends Component {
         }
 
         return (
-            <div id={id} className={'pv-dropdown pv-full-width ' + className} onBlur={(event) => this.closeDropdown(event)}>
+            <div
+                id={id}
+                className={'pv-dropdown pv-full-width ' + className}
+                onBlur={(event) => this.closeDropdown(event)}
+            >
                 <button
                     className="pv-select-multiple pv-text-left"
                     aria-haspopup="listbox"
