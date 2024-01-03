@@ -53,6 +53,20 @@ export default class PvSelect extends Component {
         this.state = {
             isToggleOn: false,
         };
+
+        this._setSelectRef = this._setSelectRef.bind(this)
+    }
+
+    /** See Select#focus (in react-select) */
+    focus () {
+        if (this._selectRef) {
+            return this._selectRef.focus()
+        }
+        return false
+    }
+
+    _setSelectRef (ref) {
+        this._selectRef = ref
     }
 
     getOptionsValue() {
@@ -68,11 +82,20 @@ export default class PvSelect extends Component {
         return multi && value ? value.length : value ? 1 : 0;
     }
 
-    handleClick() {
-        // Open/close dropdown
+    toggleDropdown() {
+        // Toggle dropdown
         this.setState((prevState) => ({
             isToggleOn: !prevState.isToggleOn,
         }));
+    }
+
+    closeDropdown(event) {
+        console.log('relatedTarget', event.relatedTarget);
+        console.log('currentTarget', event.currentTarget);
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+            // Close dropdown
+            this.setState({isToggleOn: false});
+        }
     }
 
     optionOnChange(event) {
@@ -147,8 +170,8 @@ export default class PvSelect extends Component {
                     ? value.includes(option.value)
                     : value && value === option.value;
             return (
-                <li key={id + '-' + option.value}>
-                    <label className="pv-flex">
+                <li key={id + '-' + option.value} onMouseDown={(e) => e.preventDefault()}>
+                    <label className="pv-flex" onMouseDown={(e) => e.preventDefault()}>
                         <input
                             type="checkbox"
                             className="pv-checkbox"
@@ -206,13 +229,13 @@ export default class PvSelect extends Component {
         }
 
         return (
-            <div id={id} className={'pv-dropdown pv-full-width ' + className}>
+            <div id={id} className={'pv-dropdown pv-full-width ' + className} onBlur={(event) => this.closeDropdown(event)}>
                 <button
                     className="pv-select-multiple pv-text-left"
                     aria-haspopup="listbox"
                     {...(isToggleOn ? {'data-dropdown': 'true'} : {})}
                     aria-controls={id + '-select-listbox'}
-                    onClick={() => this.handleClick()}
+                    onClick={() => this.toggleDropdown()}
                 >
                     {selectedOption}
                 </button>
@@ -438,6 +461,7 @@ PvSelect.propTypes = {
 PvSelect.defaultProps = {
     options: [],
     value: '',
+    className: '',
     placeholder: 'Selected',
     selectAll: false,
     deselectAll: false,

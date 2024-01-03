@@ -14,7 +14,7 @@ Keyword arguments:
     callbacks. The ID needs to be unique across all of the components
     in an app.
 
-- className (string; optional):
+- className (string; default ''):
     className of the dropdown element.
 
 - dataAlign (a value equal to: 'left', 'right'; default 'left'):

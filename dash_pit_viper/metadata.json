@@ -36,6 +36,26 @@
     "displayName": "PvSelect",
     "methods": [
       {
+        "name": "focus",
+        "docblock": "See Select#focus (in react-select)",
+        "modifiers": [],
+        "params": [],
+        "returns": null,
+        "description": "See Select#focus (in react-select)"
+      },
+      {
+        "name": "_setSelectRef",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "ref",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
         "name": "getOptionsValue",
         "docblock": null,
         "modifiers": [],
@@ -50,10 +70,22 @@
         "returns": null
       },
       {
-        "name": "handleClick",
+        "name": "toggleDropdown",
         "docblock": null,
         "modifiers": [],
         "params": [],
+        "returns": null
+      },
+      {
+        "name": "closeDropdown",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "event",
+            "type": null
+          }
+        ],
         "returns": null
       },
       {
@@ -309,7 +341,11 @@
           "name": "string"
         },
         "required": false,
-        "description": "className of the dropdown element"
+        "description": "className of the dropdown element",
+        "defaultValue": {
+          "value": "''",
+          "computed": false
+        }
       },
       "dropdownWidth": {
         "type": {
