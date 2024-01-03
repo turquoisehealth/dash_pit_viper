@@ -90,8 +90,6 @@ export default class PvSelect extends Component {
     }
 
     closeDropdown(event) {
-        console.log('relatedTarget', event.relatedTarget);
-        console.log('currentTarget', event.currentTarget);
         if (!event.currentTarget.contains(event.relatedTarget)) {
             // Close dropdown
             this.setState({isToggleOn: false});
