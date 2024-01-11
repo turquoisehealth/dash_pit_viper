@@ -27,8 +27,8 @@ Keyword arguments:
     If True, this dropdown is disabled and the selection cannot be
     changed.
 
-- dropdownWidth (string; optional):
-    width of the dropdown element.
+- dropdownWidth (string; default '100%'):
+    width of the dropdown element. Default: 100%.
 
 - loading_state (dict; optional):
     Object that holds the loading state object coming from

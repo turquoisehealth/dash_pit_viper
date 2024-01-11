@@ -352,7 +352,11 @@
           "name": "string"
         },
         "required": false,
-        "description": "width of the dropdown element"
+        "description": "width of the dropdown element. Default: 100%",
+        "defaultValue": {
+          "value": "'100%'",
+          "computed": false
+        }
       },
       "withCountTag": {
         "type": {

@@ -29,7 +29,7 @@ components in an app.}
 
 \item{disabled}{Logical. If true, this dropdown is disabled and the selection cannot be changed.}
 
-\item{dropdownWidth}{Character. width of the dropdown element}
+\item{dropdownWidth}{Character. width of the dropdown element. Default: 100\%}
 
 \item{loading_state}{Lists containing elements 'is_loading', 'prop_name', 'component_name'.
 those elements have the following types:

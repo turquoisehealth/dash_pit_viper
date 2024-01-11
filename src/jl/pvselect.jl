@@ -15,7 +15,7 @@ components in an app.
 - `dataAlign` (a value equal to: 'left', 'right'; optional): Aligns the dropdown menu to the right or left of the container.
 - `deselectAll` (Bool; optional): Adds the ability to deselect all options.
 - `disabled` (Bool; optional): If true, this dropdown is disabled and the selection cannot be changed.
-- `dropdownWidth` (String; optional): width of the dropdown element
+- `dropdownWidth` (String; optional): width of the dropdown element. Default: 100%
 - `loading_state` (optional): Object that holds the loading state object coming from dash-renderer. loading_state has the following type: lists containing elements 'is_loading', 'prop_name', 'component_name'.
 Those elements have the following types:
   - `is_loading` (Bool; optional): Determines if the component is loading or not

@@ -252,7 +252,7 @@ export default class PvSelect extends Component {
                     id={id + '-select-listbox'}
                     className="pv-popover"
                     data-align={dataAlign}
-                    style={dropdownWidth ? {width: dropdownWidth} : {}}
+                    style={{width: dropdownWidth}}
                 >
                     {searchable && (
                         <div
@@ -426,7 +426,7 @@ PvSelect.propTypes = {
     className: PropTypes.string,
 
     /**
-     * width of the dropdown element
+     * width of the dropdown element. Default: 100%
      */
     dropdownWidth: PropTypes.string,
 
@@ -478,6 +478,7 @@ PvSelect.defaultProps = {
     searchable: false,
     withCountTag: false,
     dataAlign: 'left',
+    dropdownWidth: '100%',
 };
 
 export const propTypes = PvSelect.propTypes;
