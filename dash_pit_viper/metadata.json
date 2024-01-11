@@ -369,6 +369,17 @@
           "computed": false
         }
       },
+      "sortBySelected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Defines if the are sorted by selected or not: Default: false",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
       "id": {
         "type": {
           "name": "string"

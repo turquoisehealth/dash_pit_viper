@@ -38,9 +38,9 @@ app.layout = html.Div(
         html.H1("Pit Viper Select With Tag (list)"),
         html.Div(
             dash_pit_viper.PvSelect(
-                options=[123, 456, 789],
+                options=list(range(1, 10)),
                 id="select2",
-                value=[123],
+                value=[1],
                 multi=True,
                 selectAll=True,
                 deselectAll=True,
@@ -49,6 +49,7 @@ app.layout = html.Div(
                 placeholder="Providers",
                 dropdownWidth="260px",
                 withCountTag=True,
+                sortBySelected=True,
             ),
             className="pv-surface-accent pv-bordered pv-inset-square-24 pv-margin-auto",
             style={"maxWidth": "260px"},
@@ -56,7 +57,7 @@ app.layout = html.Div(
         html.H1("Pit Viper Select(list)"),
         html.Div(
             dash_pit_viper.PvSelect(
-                options=["Option 1", "Option 2", "Option 3"],
+                options=["Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6", "Option 7"],
                 id="select3",
                 value="3",
                 multi=False,

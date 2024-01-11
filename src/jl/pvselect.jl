@@ -34,6 +34,7 @@ corresponds to the items specified in the
 - `placeholder` (String; optional): The grey, default text shown when no option is selected
 - `searchable` (Bool; optional): Whether to enable the searching feature or not
 - `selectAll` (Bool; optional): Adds the ability to select all options.
+- `sortBySelected` (Bool; optional): Defines if the are sorted by selected or not: Default: false
 - `style` (Dict; optional): Defines CSS styles which will override styles previously set.
 - `value` (String | Real | Bool | Array of String | Real | Bools; optional): The value of the input. If `multi` is false (the default)
 then value is just a string that corresponds to the values
@@ -44,7 +45,7 @@ array of items with values corresponding to those in the
 - `withCountTag` (Bool; optional): Defines if the select uses withCountTag or not
 """
 function pvselect(; kwargs...)
-        available_props = Symbol[:id, :className, :dataAlign, :deselectAll, :disabled, :dropdownWidth, :loading_state, :multi, :options, :placeholder, :searchable, :selectAll, :style, :value, :withCountTag]
+        available_props = Symbol[:id, :className, :dataAlign, :deselectAll, :disabled, :dropdownWidth, :loading_state, :multi, :options, :placeholder, :searchable, :selectAll, :sortBySelected, :style, :value, :withCountTag]
         wild_props = Symbol[]
         return Component("pvselect", "PvSelect", "dash_pit_viper", available_props, wild_props; kwargs...)
 end

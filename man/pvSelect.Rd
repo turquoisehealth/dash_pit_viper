@@ -13,7 +13,8 @@ pv-icon is a component that renders an svg icon.
 pvSelect(id=NULL, className=NULL, dataAlign=NULL, deselectAll=NULL,
 disabled=NULL, dropdownWidth=NULL, loading_state=NULL,
 multi=NULL, options=NULL, placeholder=NULL, searchable=NULL,
-selectAll=NULL, style=NULL, value=NULL, withCountTag=NULL)
+selectAll=NULL, sortBySelected=NULL, style=NULL, value=NULL,
+withCountTag=NULL)
 }
 
 \arguments{
@@ -54,6 +55,8 @@ an optional disabled field can be used for each option}
 \item{searchable}{Logical. Whether to enable the searching feature or not}
 
 \item{selectAll}{Logical. Adds the ability to select all options.}
+
+\item{sortBySelected}{Logical. Defines if the are sorted by selected or not: Default: false}
 
 \item{style}{Named list. Defines CSS styles which will override styles previously set.}
 

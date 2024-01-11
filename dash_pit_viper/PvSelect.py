@@ -78,6 +78,9 @@ Keyword arguments:
 - selectAll (boolean; default False):
     Adds the ability to select all options.
 
+- sortBySelected (boolean; default False):
+    Defines if the are sorted by selected or not: Default: False.
+
 - style (dict; optional):
     Defines CSS styles which will override styles previously set.
 
@@ -95,10 +98,10 @@ Keyword arguments:
     _namespace = 'dash_pit_viper'
     _type = 'PvSelect'
     @_explicitize_args
-    def __init__(self, options=Component.UNDEFINED, value=Component.UNDEFINED, multi=Component.UNDEFINED, selectAll=Component.UNDEFINED, deselectAll=Component.UNDEFINED, searchable=Component.UNDEFINED, placeholder=Component.UNDEFINED, disabled=Component.UNDEFINED, dataAlign=Component.UNDEFINED, style=Component.UNDEFINED, className=Component.UNDEFINED, dropdownWidth=Component.UNDEFINED, withCountTag=Component.UNDEFINED, id=Component.UNDEFINED, loading_state=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'className', 'dataAlign', 'deselectAll', 'disabled', 'dropdownWidth', 'loading_state', 'multi', 'options', 'placeholder', 'searchable', 'selectAll', 'style', 'value', 'withCountTag']
+    def __init__(self, options=Component.UNDEFINED, value=Component.UNDEFINED, multi=Component.UNDEFINED, selectAll=Component.UNDEFINED, deselectAll=Component.UNDEFINED, searchable=Component.UNDEFINED, placeholder=Component.UNDEFINED, disabled=Component.UNDEFINED, dataAlign=Component.UNDEFINED, style=Component.UNDEFINED, className=Component.UNDEFINED, dropdownWidth=Component.UNDEFINED, withCountTag=Component.UNDEFINED, sortBySelected=Component.UNDEFINED, id=Component.UNDEFINED, loading_state=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'className', 'dataAlign', 'deselectAll', 'disabled', 'dropdownWidth', 'loading_state', 'multi', 'options', 'placeholder', 'searchable', 'selectAll', 'sortBySelected', 'style', 'value', 'withCountTag']
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'className', 'dataAlign', 'deselectAll', 'disabled', 'dropdownWidth', 'loading_state', 'multi', 'options', 'placeholder', 'searchable', 'selectAll', 'style', 'value', 'withCountTag']
+        self.available_properties = ['id', 'className', 'dataAlign', 'deselectAll', 'disabled', 'dropdownWidth', 'loading_state', 'multi', 'options', 'placeholder', 'searchable', 'selectAll', 'sortBySelected', 'style', 'value', 'withCountTag']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()

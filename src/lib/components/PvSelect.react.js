@@ -15,9 +15,9 @@ const sanitizeOptionsValue = (value, options) => {
     // Sanitize options and value
     let sanitizedOptions = options;
     if (type(options) === 'Object') {
-        sanitizedOptions = Object.entries(options).map(([value, label]) => ({
+        sanitizedOptions = Object.entries(options).map(([v, label]) => ({
             label: React.isValidElement(label) ? label : String(label),
-            value: value,
+            value: v,
         }));
     }
 
@@ -37,6 +37,21 @@ const sanitizeOptionsValue = (value, options) => {
         type(value) === 'Array'
             ? value.map((v) => findOption(v, sanitizedOptions).value)
             : findOption(value, sanitizedOptions).value;
+
+    // Set selected to true for selected options
+    sanitizedOptions = sanitizedOptions.map((option) => {
+        if (type(sanitizedValue) === 'Array') {
+            return {
+                ...option,
+                selected: sanitizedValue.includes(option.value),
+            };
+        }
+        return {
+            ...option,
+            selected: sanitizedValue === option.value,
+        };
+    });
+
     return {
         options: sanitizedOptions,
         value: sanitizedValue,
@@ -154,19 +169,30 @@ export default class PvSelect extends Component {
             dataAlign,
             dropdownWidth,
             withCountTag,
+            sortBySelected,
         } = this.props;
         const {isToggleOn} = this.state;
         const {options, value} = this.getOptionsValue();
+
+        // Sort options by selected
+        if (sortBySelected) {
+            options.sort((a, b) => {
+                // Sort by selected
+                if (a.selected && !b.selected) {
+                    return -1;
+                }
+                if (!a.selected && b.selected) {
+                    return 1;
+                }
+                return 0;
+            });
+        }
 
         // Create list of options
         const listOptions = options.map((option) => {
             if (option.visible === false) {
                 return null;
             }
-            const checked =
-                multi && value
-                    ? value.includes(option.value)
-                    : value && value === option.value;
             return (
                 <li
                     key={id + '-' + option.value}
@@ -182,7 +208,7 @@ export default class PvSelect extends Component {
                             name={id}
                             value={option.value}
                             disabled={disabled | option.disabled}
-                            checked={checked}
+                            checked={option.selected}
                             onChange={(e) => this.optionOnChange(e)}
                         />
                         <span>{option.label}</span>
@@ -436,6 +462,11 @@ PvSelect.propTypes = {
     withCountTag: PropTypes.bool,
 
     /**
+     * Defines if the are sorted by selected or not: Default: false
+     */
+    sortBySelected: PropTypes.bool,
+
+    /**
      * The ID of this component, used to identify dash components
      * in callbacks. The ID needs to be unique across all of the
      * components in an app.
@@ -479,6 +510,7 @@ PvSelect.defaultProps = {
     withCountTag: false,
     dataAlign: 'left',
     dropdownWidth: '100%',
+    sortBySelected: false,
 };
 
 export const propTypes = PvSelect.propTypes;
