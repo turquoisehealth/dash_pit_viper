@@ -2,7 +2,7 @@
 name = "DashPitViper"
 uuid = "1b08a953-4be3-4667-9a23-ec6f1e78b88b"
 authors = ["Leonardo C. Santos <leonardo@turquoise.health>"]
-version = "0.0.3"
+version = "0.0.4"
 
 [deps]
 Dash = "1b08a953-4be3-4667-9a23-3db579824955"
