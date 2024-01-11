@@ -177,8 +177,8 @@ export default class PvSelect extends Component {
                         onMouseDown={(e) => e.preventDefault()}
                     >
                         <input
-                            type="checkbox"
-                            className="pv-checkbox"
+                            type={multi ? "checkbox" : "radio"}
+                            className={multi ? "pv-checkbox" : "pv-radio"}
                             name={id}
                             value={option.value}
                             disabled={disabled | option.disabled}
