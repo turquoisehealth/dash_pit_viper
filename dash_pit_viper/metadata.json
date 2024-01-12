@@ -36,26 +36,6 @@
     "displayName": "PvSelect",
     "methods": [
       {
-        "name": "focus",
-        "docblock": "See Select#focus (in react-select)",
-        "modifiers": [],
-        "params": [],
-        "returns": null,
-        "description": "See Select#focus (in react-select)"
-      },
-      {
-        "name": "_setSelectRef",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "ref",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
         "name": "getOptionsValue",
         "docblock": null,
         "modifiers": [],
@@ -86,6 +66,13 @@
             "type": null
           }
         ],
+        "returns": null
+      },
+      {
+        "name": "sortOptions",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
         "returns": null
       },
       {

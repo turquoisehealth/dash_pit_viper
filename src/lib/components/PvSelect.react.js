@@ -68,20 +68,6 @@ export default class PvSelect extends Component {
         this.state = {
             isToggleOn: false,
         };
-
-        this._setSelectRef = this._setSelectRef.bind(this);
-    }
-
-    /** See Select#focus (in react-select) */
-    focus() {
-        if (this._selectRef) {
-            return this._selectRef.focus();
-        }
-        return false;
-    }
-
-    _setSelectRef(ref) {
-        this._selectRef = ref;
     }
 
     getOptionsValue() {
@@ -102,6 +88,11 @@ export default class PvSelect extends Component {
         this.setState((prevState) => ({
             isToggleOn: !prevState.isToggleOn,
         }));
+        const {sortBySelected} = this.props;
+        // Sort options by selected
+        if (sortBySelected) {
+            this.sortOptions();
+        }
     }
 
     closeDropdown(event) {
@@ -109,6 +100,35 @@ export default class PvSelect extends Component {
             // Close dropdown
             this.setState({isToggleOn: false});
         }
+    }
+
+    sortOptions() {
+        // Order options by selected
+        const {options, value} = this.props;
+        const sanitizedValue = type(value) === 'Array' ? value : [value];
+        options.sort((a, b) => {
+            // Sort by selected and by label
+            const aValue = type(a) === 'Object' ? a.value : a;
+            const aLabel = type(a) === 'Object' ? a.label : a;
+            const bValue = type(b) === 'Object' ? b.value : b;
+            const bLabel = type(b) === 'Object' ? b.label : b;
+            const aSelected = sanitizedValue.includes(aValue);
+            const bSelected = sanitizedValue.includes(bValue);
+            if (aSelected && !bSelected) {
+                return -1;
+            }
+            if (!aSelected && bSelected) {
+                return 1;
+            }
+            if (aLabel < bLabel) {
+                return -1;
+            }
+            if (aLabel > bLabel) {
+                return 1;
+            }
+            return 0;
+        });
+        this.props.setProps({options: options});
     }
 
     optionOnChange(event) {
@@ -169,24 +189,9 @@ export default class PvSelect extends Component {
             dataAlign,
             dropdownWidth,
             withCountTag,
-            sortBySelected,
         } = this.props;
         const {isToggleOn} = this.state;
         const {options, value} = this.getOptionsValue();
-
-        // Sort options by selected
-        if (sortBySelected) {
-            options.sort((a, b) => {
-                // Sort by selected
-                if (a.selected && !b.selected) {
-                    return -1;
-                }
-                if (!a.selected && b.selected) {
-                    return 1;
-                }
-                return 0;
-            });
-        }
 
         // Create list of options
         const listOptions = options.map((option) => {
